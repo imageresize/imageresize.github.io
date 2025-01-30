@@ -10,30 +10,40 @@
 
     <header>
         <div class="container">
-            <h1>Image Resizer</h1>
-            <p>Resize your images quickly and easily online.</p>
+            <h1>Resize Your Images</h1>
+            <p>Quickly resize images online with just a few clicks!</p>
         </div>
     </header>
 
     <div class="container">
-        <input type="file" id="imageInput" accept="image/*" />
-        <canvas id="canvas"></canvas>
+        <div class="image-upload-section">
+            <input type="file" id="imageInput" accept="image/*" />
+            <canvas id="canvas"></canvas>
+        </div>
 
         <div class="controls">
             <h3>Resize Options</h3>
-            <label for="widthInput">Width (px):</label>
-            <input type="number" id="widthInput" />
+            <div class="form-group">
+                <label for="widthInput">Width (px):</label>
+                <input type="number" id="widthInput" placeholder="Enter Width" />
+            </div>
+
+            <div class="form-group">
+                <label for="heightInput">Height (px):</label>
+                <input type="number" id="heightInput" placeholder="Enter Height" />
+            </div>
+
+            <div class="form-group">
+                <label for="percentageInput">Resize by %:</label>
+                <input type="number" id="percentageInput" placeholder="100" />
+            </div>
+
+            <div class="form-group">
+                <label for="aspectRatio">Maintain Aspect Ratio</label>
+                <input type="checkbox" id="aspectRatio" />
+            </div>
             
-            <label for="heightInput">Height (px):</label>
-            <input type="number" id="heightInput" />
-            
-            <label for="percentageInput">Resize by %:</label>
-            <input type="number" id="percentageInput" placeholder="100" />
-            
-            <label for="aspectRatio">Maintain Aspect Ratio</label>
-            <input type="checkbox" id="aspectRatio" />
-            
-            <button onclick="resizeImage()">Resize Image</button>
+            <button class="resize-btn" onclick="resizeImage()">Resize Image</button>
             
             <div class="download-section">
                 <a id="downloadLink" download>Download Resized Image</a>

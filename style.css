@@ -9,122 +9,98 @@ body {
     font-family: Arial, sans-serif;
     background: #f8f9fa;
     color: #333;
-    line-height: 1.6;
 }
 
 .container {
-    max-width: 900px;
-    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Image Upload Box */
+.image-upload-box {
+    width: 300px;
     padding: 20px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Header */
-header {
-    background: #007bff;
-    color: #fff;
-    padding: 40px 20px;
-    border-radius: 8px 8px 0 0;
     text-align: center;
 }
 
-header h1 {
-    font-size: 36px;
-    font-weight: bold;
+/* Upload Button and Dropdown */
+.upload-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header p {
-    font-size: 18px;
-}
-
-/* Image Upload Section */
-.image-upload-section {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-#imageInput {
-    background-color: #fff;
-    border: 2px solid #007bff;
+.upload-btn {
+    background-color: #007bff;
+    color: white;
     padding: 12px;
-    width: 300px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-btn img {
+    width: 20px;
+    margin-right: 8px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+/* Image Preview */
+.image-preview {
+    margin-top: 20px;
 }
 
 canvas {
-    display: block;
     max-width: 100%;
-    margin-top: 20px;
-    max-height: 400px;
+    max-height: 300px;
     border: 1px solid #ddd;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Controls */
 .controls {
-    text-align: center;
+    margin-top: 20px;
 }
 
-.controls h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.controls label {
+    font-size: 14px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.form-group label {
-    font-size: 16px;
-}
-
-.form-group input[type="number"], 
-.form-group input[type="file"] {
+.controls input[type="number"], 
+.controls input[type="checkbox"] {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 8px;
     margin-top: 5px;
     border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-.resize-btn {
+button {
     background-color: #28a745;
     color: white;
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 12px 30px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    width: 50%;
     margin-top: 20px;
 }
 
-.resize-btn:hover {
+button:hover {
     background-color: #218838;
-}
-
-.download-section {
-    display: none;
-    margin-top: 30px;
-}
-
-#downloadLink {
-    text-decoration: none;
-    background-color: #007bff;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-}
-
-#downloadLink:hover {
-    background-color: #0056b3;
 }
 
 /* Footer */

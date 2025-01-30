@@ -1,4 +1,4 @@
-let originalImage, originalWidth, originalHeight;
+let originalImage, originalWidth, originalHeight, canvas, ctx;
 
 document.getElementById("imageInput").addEventListener("change", function(event) {
     let file = event.target.files[0];
@@ -9,8 +9,8 @@ document.getElementById("imageInput").addEventListener("change", function(event)
             originalImage = new Image();
             originalImage.src = event.target.result;
             originalImage.onload = function() {
-                let canvas = document.getElementById("canvas");
-                let ctx = canvas.getContext("2d");
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
                 originalWidth = originalImage.width;
                 originalHeight = originalImage.height;
                 canvas.width = originalWidth;
@@ -28,9 +28,7 @@ function resizeImage() {
     let newHeight = parseInt(document.getElementById("heightInput").value);
     let percentage = parseInt(document.getElementById("percentageInput").value);
     let aspectRatioChecked = document.getElementById("aspectRatio").checked;
-    let quality = parseInt(document.getElementById("qualityInput").value) / 100;
-    let format = document.getElementById("formatInput").value;
-
+    
     // Resize by percentage if provided
     if (!isNaN(percentage) && percentage > 0) {
         newWidth = Math.round(originalWidth * (percentage / 100));
@@ -46,17 +44,17 @@ function resizeImage() {
         document.getElementById("heightInput").value = newHeight;
     }
 
-    // Set canvas size and render the resized image
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
+    // Clear canvas and update its size
     canvas.width = newWidth;
     canvas.height = newHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before redrawing
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
+
+    // Draw the resized image
     ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
 
     // Create download link
     let downloadLink = document.getElementById("downloadLink");
-    downloadLink.href = canvas.toDataURL(format, quality);
-    downloadLink.download = `resized-image.${format.split("/")[1]}`;
+    downloadLink.href = canvas.toDataURL("image/png");
+    downloadLink.download = `resized-image.png`;
     downloadLink.style.display = "block";
 }

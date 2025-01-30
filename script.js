@@ -1,4 +1,19 @@
 // script.js
+document.getElementById('imageInput').addEventListener('change', function (e) {
+    const imagePreview = document.getElementById('imagePreview');
+    const preview = document.getElementById('preview');
+    const file = e.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            imagePreview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 document.getElementById('resizeButton').addEventListener('click', function () {
     const imageInput = document.getElementById('imageInput');
     const widthInput = document.getElementById('width');

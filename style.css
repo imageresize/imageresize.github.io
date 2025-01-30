@@ -18,7 +18,7 @@ h2 {
     color: #333;
 }
 
-input[type="file"] {
+input[type="file"], input[type="number"], select {
     margin: 10px 0;
 }
 

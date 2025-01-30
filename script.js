@@ -18,6 +18,7 @@ document.getElementById("imageInput").addEventListener("change", function(event)
                 ctx.drawImage(img, 0, 0, originalWidth, originalHeight);
                 document.getElementById("widthInput").value = originalWidth;
                 document.getElementById("heightInput").value = originalHeight;
+                document.getElementById("imageInput").setAttribute("data-img-src", img.src);
             };
         };
     }
@@ -48,10 +49,15 @@ function resizeImage() {
     let ctx = canvas.getContext("2d");
     canvas.width = newWidth;
     canvas.height = newHeight;
-    ctx.drawImage(canvas, 0, 0, newWidth, newHeight);
 
-    let downloadLink = document.getElementById("downloadLink");
-    downloadLink.href = canvas.toDataURL(format, quality);
-    downloadLink.download = `resized-image.${format.split("/")[1]}`;
-    downloadLink.style.display = "block";
+    let img = new Image();
+    img.src = document.getElementById("imageInput").getAttribute("data-img-src");
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+        let downloadLink = document.getElementById("downloadLink");
+        downloadLink.href = canvas.toDataURL(format, quality);
+        downloadLink.download = `resized-image.${format.split("/")[1]}`;
+        downloadLink.style.display = "block";
+    };
 }

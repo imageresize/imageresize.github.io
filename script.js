@@ -1,57 +1,69 @@
-let originalImage, canvas, ctx;
+// script.js
+document.getElementById('resizeButton').addEventListener('click', function() {
+    const imageInput = document.getElementById('imageInput');
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const cropCheckbox = document.getElementById('crop');
+    const rotateSelect = document.getElementById('rotate');
+    const flipSelect = document.getElementById('flip');
+    const qualityInput = document.getElementById('quality');
+    const canvas = document.getElementById('canvas');
+    const downloadLink = document.getElementById('downloadLink');
 
-function showUploadOptions() {
-    let selectedOption = document.getElementById('uploadOption').value;
-    if (selectedOption === 'local') {
-        document.getElementById('imageInput').style.display = 'block'; // Show file input
-    } else {
-        document.getElementById('imageInput').style.display = 'none'; // Hide file input
-        alert(`Upload image using ${selectedOption}`);
-    }
-}
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                let width = widthInput.value ? parseInt(widthInput.value) : img.width;
+                let height = heightInput.value ? parseInt(heightInput.value) : img.height;
 
-function loadImage() {
-    let fileInput = document.getElementById('imageInput');
-    let file = fileInput.files[0];
-    if (file) {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function(event) {
-            originalImage = new Image();
-            originalImage.src = event.target.result;
-            originalImage.onload = function() {
-                canvas = document.getElementById("canvas");
-                ctx = canvas.getContext("2d");
-                canvas.width = originalImage.width;
-                canvas.height = originalImage.height;
-                ctx.drawImage(originalImage, 0, 0);
-                document.getElementById('resizeControls').style.display = 'block'; // Show resize controls
+                // Set canvas dimensions
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+
+                // Rotate image
+                const rotateValue = parseInt(rotateSelect.value);
+                if (rotateValue === 90 || rotateValue === 270) {
+                    [width, height] = [height, width]; // Swap width and height for 90° and 270°
+                }
+
+                // Flip image
+                ctx.translate(width / 2, height / 2);
+                if (flipSelect.value === 'horizontal') {
+                    ctx.scale(-1, 1);
+                } else if (flipSelect.value === 'vertical') {
+                    ctx.scale(1, -1);
+                }
+                ctx.translate(-width / 2, -height / 2);
+
+                // Draw image on canvas
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Crop image if needed
+                if (cropCheckbox.checked) {
+                    const croppedCanvas = document.createElement('canvas');
+                    const croppedCtx = croppedCanvas.getContext('2d');
+                    croppedCanvas.width = width;
+                    croppedCanvas.height = height;
+                    croppedCtx.drawImage(canvas, 0, 0, width, height, 0, 0, width, height);
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(croppedCanvas, 0, 0);
+                }
+
+                // Set download link
+                const quality = parseFloat(qualityInput.value);
+                downloadLink.href = canvas.toDataURL('image/jpeg', quality);
+                downloadLink.download = 'resized-image.jpg';
+                downloadLink.style.display = 'block';
             };
+            img.src = e.target.result;
         };
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        alert('Please upload an image first.');
     }
-}
-
-function resizeImage() {
-    let newWidth = parseInt(document.getElementById('widthInput').value);
-    let newHeight = parseInt(document.getElementById('heightInput').value);
-    
-    // Resize the canvas
-    canvas.width = newWidth;
-    canvas.height = newHeight;
-    
-    // Draw the resized image
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
-    ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
-
-    // Enable download link
-    let downloadLink = document.getElementById('downloadLink');
-    downloadLink.href = canvas.toDataURL('image/png');
-    downloadLink.style.display = 'block'; // Show the download button
-}
-
-function toggleCropOption() {
-    let isChecked = document.getElementById('cropImage').checked;
-    if (isChecked) {
-        alert("Crop option selected. Implement crop functionality here.");
-    }
-}
+});

@@ -8,44 +8,40 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Resize Your Images</h1>
-            <p>Quickly resize images online with just a few clicks!</p>
-        </div>
-    </header>
-
     <div class="container">
-        <div class="image-upload-section">
-            <input type="file" id="imageInput" accept="image/*" />
-            <canvas id="canvas"></canvas>
-        </div>
-
-        <div class="controls">
-            <h3>Resize Options</h3>
-            <div class="form-group">
-                <label for="widthInput">Width (px):</label>
-                <input type="number" id="widthInput" placeholder="Enter Width" />
-            </div>
-
-            <div class="form-group">
-                <label for="heightInput">Height (px):</label>
-                <input type="number" id="heightInput" placeholder="Enter Height" />
-            </div>
-
-            <div class="form-group">
-                <label for="percentageInput">Resize by %:</label>
-                <input type="number" id="percentageInput" placeholder="100" />
-            </div>
-
-            <div class="form-group">
-                <label for="aspectRatio">Maintain Aspect Ratio</label>
-                <input type="checkbox" id="aspectRatio" />
+        <div class="image-upload-box">
+            <div class="upload-header">
+                <label for="imageInput" class="upload-btn">
+                    <img src="upload-icon.png" alt="Upload Icon"> Upload Image
+                </label>
+                <select id="uploadOption" onchange="showUploadOptions()">
+                    <option value="local">Upload from Local</option>
+                    <option value="googleDrive">Google Drive</option>
+                    <option value="dropbox">Dropbox</option>
+                    <option value="url">URL</option>
+                </select>
             </div>
             
-            <button class="resize-btn" onclick="resizeImage()">Resize Image</button>
+            <input type="file" id="imageInput" accept="image/*" onchange="loadImage()" style="display:none;">
             
-            <div class="download-section">
+            <div id="uploadedImagePreview" class="image-preview">
+                <canvas id="canvas"></canvas>
+            </div>
+
+            <div id="resizeControls" class="controls">
+                <label for="widthInput">Width:</label>
+                <input type="number" id="widthInput" placeholder="Enter width" />
+
+                <label for="heightInput">Height:</label>
+                <input type="number" id="heightInput" placeholder="Enter height" />
+
+                <label for="cropImage">Crop Image:</label>
+                <input type="checkbox" id="cropImage" onchange="toggleCropOption()"/>
+
+                <button onclick="resizeImage()">Resize Image</button>
+            </div>
+
+            <div id="downloadLinkSection" style="display:none;">
                 <a id="downloadLink" download>Download Resized Image</a>
             </div>
         </div>

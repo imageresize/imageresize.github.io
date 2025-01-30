@@ -1,7 +1,18 @@
-let originalImage, originalWidth, originalHeight, canvas, ctx;
+let originalImage, canvas, ctx;
 
-document.getElementById("imageInput").addEventListener("change", function(event) {
-    let file = event.target.files[0];
+function showUploadOptions() {
+    let selectedOption = document.getElementById('uploadOption').value;
+    if (selectedOption === 'local') {
+        document.getElementById('imageInput').style.display = 'block'; // Show file input
+    } else {
+        document.getElementById('imageInput').style.display = 'none'; // Hide file input
+        alert(`Upload image using ${selectedOption}`);
+    }
+}
+
+function loadImage() {
+    let fileInput = document.getElementById('imageInput');
+    let file = fileInput.files[0];
     if (file) {
         let reader = new FileReader();
         reader.readAsDataURL(file);
@@ -11,50 +22,36 @@ document.getElementById("imageInput").addEventListener("change", function(event)
             originalImage.onload = function() {
                 canvas = document.getElementById("canvas");
                 ctx = canvas.getContext("2d");
-                originalWidth = originalImage.width;
-                originalHeight = originalImage.height;
-                canvas.width = originalWidth;
-                canvas.height = originalHeight;
-                ctx.drawImage(originalImage, 0, 0, originalWidth, originalHeight);
-                document.getElementById("widthInput").value = originalWidth;
-                document.getElementById("heightInput").value = originalHeight;
+                canvas.width = originalImage.width;
+                canvas.height = originalImage.height;
+                ctx.drawImage(originalImage, 0, 0);
+                document.getElementById('resizeControls').style.display = 'block'; // Show resize controls
             };
         };
     }
-});
+}
 
 function resizeImage() {
-    let newWidth = parseInt(document.getElementById("widthInput").value);
-    let newHeight = parseInt(document.getElementById("heightInput").value);
-    let percentage = parseInt(document.getElementById("percentageInput").value);
-    let aspectRatioChecked = document.getElementById("aspectRatio").checked;
+    let newWidth = parseInt(document.getElementById('widthInput').value);
+    let newHeight = parseInt(document.getElementById('heightInput').value);
     
-    // Resize by percentage if provided
-    if (!isNaN(percentage) && percentage > 0) {
-        newWidth = Math.round(originalWidth * (percentage / 100));
-        newHeight = Math.round(originalHeight * (percentage / 100));
-        document.getElementById("widthInput").value = newWidth;
-        document.getElementById("heightInput").value = newHeight;
-    }
-
-    // Maintain aspect ratio if selected
-    if (aspectRatioChecked) {
-        let aspectRatio = originalWidth / originalHeight;
-        newHeight = Math.round(newWidth / aspectRatio);
-        document.getElementById("heightInput").value = newHeight;
-    }
-
-    // Clear canvas and update its size
+    // Resize the canvas
     canvas.width = newWidth;
     canvas.height = newHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
-
+    
     // Draw the resized image
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
     ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
 
-    // Create download link
-    let downloadLink = document.getElementById("downloadLink");
-    downloadLink.href = canvas.toDataURL("image/png");
-    downloadLink.download = `resized-image.png`;
-    downloadLink.style.display = "block";
+    // Enable download link
+    let downloadLink = document.getElementById('downloadLink');
+    downloadLink.href = canvas.toDataURL('image/png');
+    downloadLink.style.display = 'block'; // Show the download button
+}
+
+function toggleCropOption() {
+    let isChecked = document.getElementById('cropImage').checked;
+    if (isChecked) {
+        alert("Crop option selected. Implement crop functionality here.");
+    }
 }

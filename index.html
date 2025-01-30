@@ -8,40 +8,42 @@
 </head>
 <body>
 
-    <div class="container">
-        <h2>Image Resizer Tool</h2>
+    <header>
+        <div class="container">
+            <h1>Image Resizer</h1>
+            <p>Resize your images quickly and easily online.</p>
+        </div>
+    </header>
 
-        <input type="file" id="imageInput" accept="image/*">
+    <div class="container">
+        <input type="file" id="imageInput" accept="image/*" />
         <canvas id="canvas"></canvas>
 
         <div class="controls">
-            <label>Width (px):</label>
-            <input type="number" id="widthInput">
-
-            <label>Height (px):</label>
-            <input type="number" id="heightInput">
-
-            <label>Resize by %:</label>
-            <input type="number" id="percentageInput" placeholder="100">
-
-            <label>
-                <input type="checkbox" id="aspectRatio"> Maintain Aspect Ratio
-            </label>
-
-            <label>Quality (1-100):</label>
-            <input type="number" id="qualityInput" value="80" min="1" max="100">
-
-            <label>Format:</label>
-            <select id="formatInput">
-                <option value="image/png">PNG</option>
-                <option value="image/jpeg">JPG</option>
-                <option value="image/webp">WEBP</option>
-            </select>
+            <h3>Resize Options</h3>
+            <label for="widthInput">Width (px):</label>
+            <input type="number" id="widthInput" />
+            
+            <label for="heightInput">Height (px):</label>
+            <input type="number" id="heightInput" />
+            
+            <label for="percentageInput">Resize by %:</label>
+            <input type="number" id="percentageInput" placeholder="100" />
+            
+            <label for="aspectRatio">Maintain Aspect Ratio</label>
+            <input type="checkbox" id="aspectRatio" />
+            
+            <button onclick="resizeImage()">Resize Image</button>
+            
+            <div class="download-section">
+                <a id="downloadLink" download>Download Resized Image</a>
+            </div>
         </div>
-
-        <button onclick="resizeImage()">Resize Image</button>
-        <a id="downloadLink" download="resized-image.png">Download Resized Image</a>
     </div>
+
+    <footer>
+        <p>&copy; 2025 Image Resizer Tool. All Rights Reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

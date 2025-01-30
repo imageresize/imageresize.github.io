@@ -4,52 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Resizer</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>Image Resizer</h1>
-        <div class="upload-section">
-            <input type="file" id="imageInput" accept="image/*">
-            <label for="imageInput" class="upload-label">Upload Image</label>
-        </div>
-        <div class="options">
-            <div class="resize-options">
-                <label for="width">Width:</label>
-                <input type="number" id="width" placeholder="Width">
-                <label for="height">Height:</label>
-                <input type="number" id="height" placeholder="Height">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Image Resizer</h1>
+        <div class="space-y-6">
+            <!-- Upload Section -->
+            <div class="flex flex-col items-center">
+                <label for="imageInput" class="bg-blue-500 text-white px-6 py-2 rounded-lg cursor-pointer hover:bg-blue-600 transition duration-300">
+                    Upload Image
+                </label>
+                <input type="file" id="imageInput" accept="image/*" class="hidden">
+                <p class="text-gray-500 text-sm mt-2">Supported formats: JPEG, PNG, GIF</p>
             </div>
-            <div class="crop-options">
-                <label for="crop">Crop:</label>
-                <input type="checkbox" id="crop">
+
+            <!-- Resize Options -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="width" class="block text-gray-700">Width</label>
+                    <input type="number" id="width" placeholder="Width" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="height" class="block text-gray-700">Height</label>
+                    <input type="number" id="height" placeholder="Height" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
             </div>
-            <div class="rotate-options">
-                <label for="rotate">Rotate:</label>
-                <select id="rotate">
-                    <option value="0">0°</option>
-                    <option value="90">90°</option>
-                    <option value="180">180°</option>
-                    <option value="270">270°</option>
-                </select>
+
+            <!-- Crop, Rotate, Flip, Quality Options -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="crop" class="block text-gray-700">Crop</label>
+                    <input type="checkbox" id="crop" class="mt-2">
+                </div>
+                <div>
+                    <label for="rotate" class="block text-gray-700">Rotate</label>
+                    <select id="rotate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="0">0°</option>
+                        <option value="90">90°</option>
+                        <option value="180">180°</option>
+                        <option value="270">270°</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="flip" class="block text-gray-700">Flip</label>
+                    <select id="flip" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="none">None</option>
+                        <option value="horizontal">Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="quality" class="block text-gray-700">Quality</label>
+                    <input type="range" id="quality" min="0" max="1" step="0.1" value="1" class="w-full">
+                </div>
             </div>
-            <div class="flip-options">
-                <label for="flip">Flip:</label>
-                <select id="flip">
-                    <option value="none">None</option>
-                    <option value="horizontal">Horizontal</option>
-                    <option value="vertical">Vertical</option>
-                </select>
+
+            <!-- Process Button -->
+            <button id="resizeButton" class="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300">
+                Process Image
+            </button>
+
+            <!-- Output Section -->
+            <div class="mt-6">
+                <canvas id="canvas" class="w-full border rounded-lg"></canvas>
+                <a id="downloadLink" class="mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300" style="display: none;">
+                    Download Resized Image
+                </a>
             </div>
-            <div class="quality-options">
-                <label for="quality">Quality:</label>
-                <input type="range" id="quality" min="0" max="1" step="0.1" value="1">
-            </div>
-        </div>
-        <button id="resizeButton">Process Image</button>
-        <div class="output-section">
-            <canvas id="canvas"></canvas>
-            <a id="downloadLink" style="display:none;">Download Resized Image</a>
         </div>
     </div>
     <script src="script.js"></script>

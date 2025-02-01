@@ -1,0 +1,20 @@
+body {
+       font-family: Arial, sans-serif;
+       margin: 20px;
+   }
+   .container {
+       max-width: 800px;
+       margin: 0 auto;
+   }
+   .upload-section {
+       margin-bottom: 20px;
+   }
+   .download-btn {
+       display: inline-block;
+       margin-top: 20px;
+       padding: 10px 20px;
+       background-color: #28a745;
+       color: white;
+       text-decoration: none;
+       border-radius: 5px;
+   }

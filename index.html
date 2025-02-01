@@ -1,85 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Resizer</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl transform transition-all hover:scale-105">
-        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6 animate-bounce">Image Resizer</h1>
-        <div class="space-y-6">
-            <!-- Upload Section -->
-            <div class="flex flex-col items-center">
-                <label for="imageInput" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full cursor-pointer hover:from-purple-600 hover:to-blue-500 transition-all duration-300 shadow-lg">
-                    Upload Image
-                </label>
-                <input type="file" id="imageInput" accept="image/*" class="hidden">
-                <p class="text-gray-600 text-sm mt-2">Supported formats: JPEG, PNG, GIF</p>
-            </div>
-
-            <!-- Image Preview -->
-            <div id="imagePreview" class="hidden">
-                <img id="preview" src="#" alt="Image Preview" class="w-full rounded-lg shadow-md">
-            </div>
-
-            <!-- Resize Options -->
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label for="width" class="block text-gray-700 font-medium">Width</label>
-                    <input type="number" id="width" placeholder="Width" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div>
-                    <label for="height" class="block text-gray-700 font-medium">Height</label>
-                    <input type="number" id="height" placeholder="Height" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-            </div>
-
-            <!-- Crop, Rotate, Flip, Quality Options -->
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label for="crop" class="block text-gray-700 font-medium">Crop</label>
-                    <input type="checkbox" id="crop" class="mt-2 h-5 w-5 text-blue-500 rounded focus:ring-blue-500">
-                </div>
-                <div>
-                    <label for="rotate" class="block text-gray-700 font-medium">Rotate</label>
-                    <select id="rotate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="0">0°</option>
-                        <option value="90">90°</option>
-                        <option value="180">180°</option>
-                        <option value="270">270°</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="flip" class="block text-gray-700 font-medium">Flip</label>
-                    <select id="flip" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="none">None</option>
-                        <option value="horizontal">Horizontal</option>
-                        <option value="vertical">Vertical</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="quality" class="block text-gray-700 font-medium">Quality</label>
-                    <input type="range" id="quality" min="0" max="1" step="0.1" value="1" class="w-full">
-                </div>
-            </div>
-
-            <!-- Process Button -->
-            <button id="resizeButton" class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-3 rounded-lg hover:from-blue-500 hover:to-green-400 transition-all duration-300 shadow-lg">
-                Process Image
-            </button>
-
-            <!-- Output Section -->
-            <div class="mt-6">
-                <canvas id="canvas" class="w-full border rounded-lg shadow-md"></canvas>
-                <a id="downloadLink" class="mt-4 inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-blue-500 transition-all duration-300 shadow-lg" style="display: none;">
-                    Download Resized Image
-                </a>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>PDF Text Editor</title>
+       <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+   </head>
+   <body>
+       <div class="container">
+           <h1>PDF Text Editor</h1>
+           <form id="upload-form" class="upload-section" enctype="multipart/form-data" method="POST" action="/edit">
+               <input type="file" name="file" accept="application/pdf" required>
+               <input type="password" name="password" placeholder="Enter PDF Password (if any)">
+               <button type="submit">Upload and Edit PDF</button>
+           </form>
+       </div>
+   </body>
+   </html>
